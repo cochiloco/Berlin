@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function(){
+            //by default the button should be disabled
+            document.querySelector('#submitButton').disabled = true;
+            //once the user inputs something enable the button
+            document.querySelector('#newTask').onkeyup =  () => {
+                if(document.querySelector('#newTask').value.length > 0) {
+                    document.querySelector('#submitButton').disabled = false;
+                } else {
+                    document.querySelector('#submitButton').disabled = true;
+                }
+                
+            };
+            //
+            document.querySelector('form').onsubmit = () => {
+                const userInput = document.querySelector('#newTask').value;
+                //create new List Element and store it on newLi, add to the innerHTML the user's input
+                const newLi = document.createElement('li')
+                newLi.innerHTML = userInput;
+                // add the newLi to the ul list
+                document.querySelector('#taskList').append(newLi);
+                //clear the placeholder
+                document.querySelector('#newTask').value = '';
+                document.querySelector('#submitButton').disabled = true;
+                //stop form from submitting
+                return false;
+            };
+        })
+    </script>
+</head>
+<body>
+    <h1>Tasks</h1>
+    <ul id="taskList">
+    </ul>
+    <form>
+        <input id="newTask" type="text" placeholder="Write new task here">
+        <input type="submit" id="submitButton">
+    </form>
+</body>
+</html>
